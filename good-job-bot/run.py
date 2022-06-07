@@ -67,6 +67,7 @@ def is_success_message(message: str) -> bool:
             "✅",
             "☑️",
             "checked in",
+            "did it",
         ]
     )
 
