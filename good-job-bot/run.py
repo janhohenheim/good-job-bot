@@ -56,17 +56,63 @@ def is_success_message(message: str) -> bool:
     """Check if the message is a success message."""
     return any(
         success in message.lower()
-        for success in ["done", "fertig", "success", "erledigt", "geschaut", "✔️", "✅"]
+        for success in [
+            "done",
+            "fertig",
+            "success",
+            "erledigt",
+            "completed",
+            "geschaut",
+            "✔️",
+            "✅",
+            "☑️",
+            "checked in",
+        ]
     )
 
 
-def get_success_emoji() -> str:
-    """Get a random emoji."""
-    return random.choice(["🎉", "🎊", "🎈", "🎁", "🎆", "🎇"])
+def get_success_message() -> str:
+    """Get a random success message."""
+    return random.choice(
+        [
+            "🎉",
+            "🎊",
+            "🎈",
+            "🎁",
+            "🎆",
+            "🎇",
+            "💪",
+            "❤️",
+            "⭐️",
+            "✨",
+            "🌟",
+            "💫",
+            "🌠",
+            "🌈",
+            "🔥",
+            "Proud of you!",
+            "You did it!",
+            "You got a step closer to your ideal self!",
+            "Improving, I see!",
+            "You are doing great!",
+            "Wow, look at you!",
+            "You are a star!",
+            "I knew you could do it!",
+            "I'm glad I could help!",
+            "You are amazing!",
+            "You are awesome!",
+            "You are incredible!",
+            "You are inspiring!",
+            "You are wonderful!",
+            "You are simply the best!",
+            "You should be proud of yourself!",
+            "You are one of a kind!",
+        ]
+    )
 
 
-async def echo(update: Update, context: CallbackContext.DEFAULT_TYPE) -> None:
-    """Echo the user message."""
+async def good_job(update: Update, context: CallbackContext.DEFAULT_TYPE) -> None:
+    """Tell the user they did a good job."""
     is_username = update.message.from_user.username
     should_username = get_const("USERNAME")
     if is_username != should_username:
@@ -75,7 +121,7 @@ async def echo(update: Update, context: CallbackContext.DEFAULT_TYPE) -> None:
     if not is_success_message(update.message.text):
         return
 
-    emoji = get_success_emoji()
+    emoji = get_success_message()
     await update.message.reply_text(emoji)
 
 
@@ -96,7 +142,7 @@ def main() -> None:
     application.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, good_job))
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling()
