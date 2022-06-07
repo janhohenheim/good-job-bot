@@ -71,6 +71,25 @@ def is_success_message(message: str) -> bool:
     )
 
 
+def is_failure(message: str) -> bool:
+    """Check if the message is a failure message."""
+    return any(
+        failure in message.lower()
+        for failure in [
+            "fail",
+            "couldn't",
+            ":(",
+            "nicht geschafft",
+            "nicht erledigt",
+            "not checked in",
+            "forgot",
+            "vergessen",
+            "missed",
+            "❌",
+        ]
+    )
+
+
 def get_success_message() -> str:
     """Get a random success message."""
     return random.choice(
@@ -118,7 +137,7 @@ async def good_job(update: Update, context: CallbackContext.DEFAULT_TYPE) -> Non
     if is_username != should_username:
         return
 
-    if not is_success_message(update.message.text):
+    if not is_success_message(update.message.text) or is_failure(update.message.text):
         return
 
     emoji = get_success_message()
