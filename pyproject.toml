@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "good-job-bot"
+version = "0.1.0"
+description = ""
+authors = ["Jan Hohenheim <jan@hohenheim.ch>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-telegram-bot = "^20.0a0"
+python-dotenv = "^0.20.0"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^22.3.0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
